@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: read
+  dependency-graph: write
+
 jobs:
   build:
 
