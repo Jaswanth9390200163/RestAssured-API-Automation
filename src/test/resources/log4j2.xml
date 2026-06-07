@@ -1,0 +1,31 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>		
+            																					
+        </Console>
+        
+        <File name = "File"  fileName = "logs/test.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>	
+        	
+        </File>
+        
+    </Appenders>
+    
+    <Loggers>
+    	<Root level = "info">
+    		<AppenderRef ref = "Console"/>
+    		<AppenderRef ref = "File"/>
+    	</Root>
+    </Loggers>
+
+</Configuration>
+
+
+
+<!-- [%t] ==> thread name inside square brackets, if it is single threaded then we will get as main-->
+<!-- %d{HH:mm:ss.SSS} ==> date and time in hours, minutes, seconds, and milliseconds  ... basically timestamp -->
+<!-- %-5level ==> log level, -5 is for padding the log level to 5 characters, so that all log levels are aligned in the log file -->
+<!-- %logger{36} ==> class name truncated to 36 characters -->
+<!-- %msg ==> log message -->
+<!-- %n ==> new line -->
