@@ -171,3 +171,44 @@ Connection=keep-alive
 22:18:56.041 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
 22:18:56.042 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
 22:18:56.560 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : API Test
+22:39:16.058 [main] INFO  com.api.listeners.TestListenner - Test suite started !!!: API Test
+22:39:16.374 [main] INFO  com.api.listeners.TestListenner - Test case started!!! : loginTestOptimized
+22:39:18.334 [main] INFO  com.api.filters.LoggingFilter - Request Method: POST
+22:39:18.334 [main] INFO  com.api.filters.LoggingFilter - Base URI : http://64.227.160.186:8080
+22:39:18.347 [main] INFO  com.api.filters.LoggingFilter - Request URI: http://64.227.160.186:8080/api/auth/login
+22:39:18.348 [main] INFO  com.api.filters.LoggingFilter - Request Headers: Accept=*/*
+Content-Type=application/json
+22:39:18.348 [main] INFO  com.api.filters.LoggingFilter - Request Body: {"username":"jaswanth","password":"Jaswanth@9999"}
+22:39:19.264 [main] INFO  com.api.filters.LoggingFilter - Response Status Code: 200
+22:39:19.265 [main] INFO  com.api.filters.LoggingFilter - Response Headers: Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+Access-Control-Allow-Origin=https://swift.techwithjatin.com
+Access-Control-Allow-Methods=GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age=3600
+Access-Control-Allow-Headers=Authorization, Content-Type, Accept
+Access-Control-Allow-Credentials=true
+X-Content-Type-Options=nosniff
+X-XSS-Protection=0
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Mon, 08 Jun 2026 17:09:19 GMT
+Keep-Alive=timeout=60
+Connection=keep-alive
+22:39:19.351 [main] INFO  com.api.filters.LoggingFilter - Response Body: {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYXN3YW50aCIsImlhdCI6MTc4MDkzODU1OSwiZXhwIjoxNzgwOTQyMTU5fQ.y5JPcRAkTTTopmEJZXidThKyZmwZD1qkir6LFazaORM",
+    "type": "Bearer",
+    "id": 4490,
+    "username": "Jaswanth",
+    "email": "Jaswanthalapati1@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ]
+}
+22:39:19.478 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
+22:39:19.478 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
+22:39:19.900 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : API Test
