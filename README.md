@@ -42,13 +42,18 @@ The framework is designed to test authentication-based APIs and user profile man
 ✅ **Service-Oriented Architecture** - Organized test services (AuthService, UserService, etc.)  
 ✅ **Request/Response Serialization** - Automatic POJO deserialization using Jackson  
 ✅ **Custom Logging Filter** - Logs all requests and responses automatically  
-✅ **TestNG Listeners** - Track test execution lifecycle and log test status  
-✅ **Parameterized Tests** - Data-driven testing capabilities  
+✅ **Extent Reports Integration** - Advanced HTML reporting with ExtentReportManager listener  
+✅ **Parameterized Tests** - Data-driven testing capabilities with DataProviders  
 ✅ **Bearer Token Authentication** - Support for token-based authentication  
-✅ **Multiple HTTP Methods** - GET, POST, PUT request support  
+✅ **Multiple HTTP Methods** - GET, POST, PUT, DELETE request support  
 ✅ **Comprehensive Assertions** - TestNG assertions for validation  
 ✅ **Log4j2 Integration** - File and console logging with customizable patterns  
 ✅ **Thread-Safe Execution** - Support for parallel test execution  
+✅ **JavaFaker Integration** - Dynamic test data generation  
+✅ **Lombok Support** - Reduced boilerplate code with annotations  
+✅ **Excel Data Integration** - Apache POI for Excel test data management  
+✅ **Petstore API Support** - Pre-configured endpoints for Petstore Swagger API  
+✅ **Dual API Support** - Authentication API and Petstore API endpoints  
 
 ---
 
@@ -60,6 +65,10 @@ The framework is designed to test authentication-based APIs and user profile man
 | **TestNG** | 7.11.0 | Test framework & assertions |
 | **Jackson** | 2.18.2 | JSON serialization/deserialization |
 | **Log4j2** | 2.20.0 | Logging framework |
+| **Extent Reports** | 5.0.9 | Advanced test reporting & HTML reports |
+| **Apache POI** | 5.4.1 | Excel file handling (test data) |
+| **JavaFaker** | 1.0.2 | Test data generation & random values |
+| **Lombok** | 1.18.30 | Boilerplate code generation (@Getter, @Setter, @Data) |
 | **Maven** | Latest | Build automation |
 | **Java** | 21 | Programming language |
 
@@ -71,6 +80,7 @@ The framework is designed to test authentication-based APIs and user profile man
 RestAssured-API-Automation/
 ├── pom.xml                                    # Maven configuration and dependencies
 ├── suite.xml                                  # TestNG suite configuration
+├── TestData.xlsx                              # Excel test data file
 ├── logs/
 │   └── test.log                              # Test execution logs
 ├── src/
@@ -79,7 +89,14 @@ RestAssured-API-Automation/
 │   │   └── resources/                        # Main resources
 │   └── test/
 │       ├── java/
-│       │   └── com/api/
+│       │   ├── api/                          # API-specific endpoints and payloads
+│       │   │   ├── endpoints/                # API endpoint routes
+│       │   │   │   ├── Routes.java           # Routes (base URLs and endpoints)
+│       │   │   │   ├── UserEndPoints.java    # User API endpoints
+│       │   │   │   └── UserEndPoints2.java   # Alternative user endpoints
+│       │   │   └── payload/
+│       │   │       └── User.java             # User payload POJO
+│       │   └── com/api/                      # Core API testing framework
 │       │       ├── base/                     # Base classes for API testing
 │       │       │   ├── BaseService.java      # Abstract base for all services
 │       │       │   ├── AuthService.java      # Authentication API service
@@ -94,28 +111,37 @@ RestAssured-API-Automation/
 │       │       │       └── UserProfileResponse.java
 │       │       ├── filters/                  # Custom RestAssured filters
 │       │       │   └── LoggingFilter.java    # Logs all requests/responses
+│       │       ├── utilities/                # Utility classes for tests
+│       │       │   ├── ExtentReportManager.java   # Extent Reports implementation
+│       │       │   ├── DataProviders.java    # TestNG data providers
+│       │       │   └── ExcelUtility.java     # Excel file utilities
 │       │       ├── listeners/                # TestNG listeners
 │       │       │   └── TestListenner.java    # Test lifecycle listener
 │       │       └── tests/                    # Test classes
 │       │           ├── LoginAPITest.java
 │       │           ├── LoginAPITestOptimized.java
+│       │           ├── LoginAPITestEnhanced.java
 │       │           ├── SignupAPITest.java
 │       │           ├── GetProfileAPITest.java
 │       │           ├── UpdateProfileTest.java
 │       │           ├── ForgotPasswordAPITest.java
-│       │           └── ... (more test files)
+│       │           ├── DataDrivenTests.java  # Parameterized data-driven tests
+│       │           ├── UserTests.java
+│       │           └── UserTests2.java
 │       └── resources/
-│           └── log4j2.xml                    # Log4j2 configuration
+│           ├── log4j2.xml                    # Log4j2 configuration
+│           └── routes.properties             # Route configurations
 ├── target/                                    # Build output directory
 │   ├── classes/
 │   ├── test-classes/
 │   ├── generated-sources/
 │   └── surefire-reports/                     # Maven Surefire test reports
-├── test-output/                              # TestNG reports
+├── test-output/                              # Extent Reports and TestNG reports
 │   ├── index.html                            # TestNG HTML report
 │   ├── emailable-report.html                 # Email-friendly report
+│   ├── Automation-Report-*.html              # Extent HTML Reports
 │   ├── testng-results.xml                    # XML test results
-│   └── ... (other TestNG reports)
+│   └── ... (other reports)
 └── README.md                                  # This file
 ```
 
@@ -239,16 +265,30 @@ Open these HTML files in a browser to view detailed test results.
 
 ### API Base URL
 
-Located in `BaseService.java`:
+The framework supports two sets of APIs:
+
+**1. Authentication & Custom APIs** - Located in `BaseService.java`:
 
 ```java
 private static final String BASE_URL = "http://64.227.160.186:8080";
 ```
 
-To change the API endpoint, modify this URL:
+To change this API endpoint:
 
 ```java
 private static final String BASE_URL = "http://your-api-url:port";
+```
+
+**2. Petstore Swagger APIs** - Located in `api/endpoints/Routes.java`:
+
+```java
+public static String base_url = "https://petstore.swagger.io/v2";
+
+// User Module endpoints
+public static String post_url = base_url + "/user";        // POST /user
+public static String put_url = base_url + "/user/{username}";   // PUT /user/{username}
+public static String get_url = base_url + "/user/{username}";   // GET /user/{username}
+public static String delete_url = base_url + "/user/{username}"; // DELETE /user/{username}
 ```
 
 ### Logging Configuration
@@ -279,12 +319,22 @@ Logging is configured in `src/test/resources/log4j2.xml`:
 ```
 
 **Pattern Elements:**
-- `%d{HH:mm:ss.SSS}` - Timestamp
-- `[%t]` - Thread name
-- `%-5level` - Log level (padded to 5 characters)
+- `%d{HH:mm:ss.SSS}` - Timestamp (hours, minutes, seconds, milliseconds)
+- `[%t]` - Thread name in square brackets (single-threaded: "main")
+- `%-5level` - Log level padded to 5 characters for alignment
 - `%logger{36}` - Class name (truncated to 36 characters)
 - `%msg` - Log message
 - `%n` - New line
+
+### Extent Reports Configuration
+
+Extent Reports generates advanced HTML reports. Configuration is in `ExtentReportManager.java`:
+
+The reports are generated with:
+- Timestamp in filename: `Automation-Report-{timestamp}.html`
+- Location: `test-output/` directory
+- Theme: Standard Extent Reports theme
+- Detailed logs and pass/fail status for each test
 
 ### TestNG Suite Configuration
 
@@ -293,16 +343,23 @@ Modify `suite.xml` to control test execution:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="REST ASSURED API Test suite" parallel="tests" thread-count="5">
-  <test name="API Test">
+<suite name="REST ASSURED API Test suite">
+  <listeners>
+    <listener class-name="com.api.utilities.ExtentReportManager"/>
+  </listeners>
+  <test thread-count="5" name="API Test">
     <classes>
       <class name="com.api.tests.LoginAPITestOptimized"/>
-      <class name="com.api.tests.SignupAPITest"/>
       <!-- Add more test classes -->
     </classes>
   </test>
 </suite>
 ```
+
+**Configuration Options:**
+- `thread-count` - Number of threads for parallel execution
+- `listeners` - Test listeners (ExtentReportManager for Extent Reports)
+- `classes` - Test classes to execute
 
 ---
 
@@ -332,7 +389,24 @@ LoginRequest request = new LoginRequest("username", "password");
 LoginResponse response = restResponse.as(LoginResponse.class);
 ```
 
-### 3. **Filter Pattern**
+### 3. **Endpoint Routes Pattern**
+
+Centralized API endpoint management in `Routes.java` and `UserEndPoints.java`:
+
+```java
+// Routes.java - Constants
+public static String base_url = "https://petstore.swagger.io/v2";
+public static String post_url = base_url + "/user";
+
+// UserEndPoints.java - Endpoint methods
+public class UserEndPoints {
+    public static Response createUser(User payload) {
+        return given().body(payload).post(Routes.post_url);
+    }
+}
+```
+
+### 4. **Filter Pattern**
 
 Custom logging filter intercepts all requests/responses:
 
@@ -340,13 +414,22 @@ Custom logging filter intercepts all requests/responses:
 filters(new LoggingFilter());  // Applied globally in BaseService
 ```
 
-### 4. **Listener Pattern**
+### 5. **Listener Pattern**
 
 TestNG listeners track test execution lifecycle:
 
 ```java
-@Listeners(com.api.listeners.TestListenner.class)
-public class LoginAPITestOptimized { ... }
+// Registered in suite.xml
+<listener class-name="com.api.utilities.ExtentReportManager"/>
+```
+
+### 6. **Data Provider Pattern**
+
+Parameterized tests using TestNG data providers:
+
+```java
+@Test(dataProvider = "loginCredentials", dataProviderClass = DataProviders.class)
+public void testLogin(String username, String password) { ... }
 ```
 
 ---
@@ -362,24 +445,34 @@ public class BaseService {
     private static final String BASE_URL = "http://64.227.160.186:8080";
     private RequestSpecification requestSpecification;
     
+    static {
+        // Static initializer block to apply LoggingFilter globally
+        filters(new LoggingFilter());
+    }
+    
     public BaseService() {
+        // Initialize RequestSpecification with base URI
         requestSpecification = given().baseUri(BASE_URL);
     }
     
     protected void setAuthToken(String token) {
+        // Set Bearer token for authenticated requests
         requestSpecification.header("Authorization", "Bearer " + token);
     }
     
     protected Response postRequest(String endpoint, Object payload) {
+        // Generic POST request method
         return requestSpecification.contentType(ContentType.JSON)
             .body(payload).post(endpoint);
     }
     
     protected Response getRequest(String endpoint) {
+        // GET request method
         return requestSpecification.get(endpoint);
     }
     
     protected Response putRequest(String endpoint, Object payload) {
+        // PUT request method
         return requestSpecification.contentType(ContentType.JSON)
             .body(payload).put(endpoint);
     }
@@ -404,6 +497,33 @@ public class AuthService extends BaseService {
 }
 ```
 
+### UserEndPoints.java
+
+Manages User API endpoints for Petstore API:
+
+```java
+public class UserEndPoints {
+    // Uses Routes.java to construct URLs
+    // Methods for POST, GET, PUT, DELETE operations on user endpoints
+}
+```
+
+### Routes.java
+
+Contains endpoint configurations for Petstore API:
+
+```java
+public class Routes {
+    public static String base_url = "https://petstore.swagger.io/v2";
+    
+    // User Module endpoints
+    public static String post_url = base_url + "/user";
+    public static String put_url = base_url + "/user/{username}";
+    public static String get_url = base_url + "/user/{username}";
+    public static String delete_url = base_url + "/user/{username}";
+}
+```
+
 ### LoggingFilter.java
 
 Custom filter for automatic request/response logging:
@@ -424,19 +544,59 @@ public class LoggingFilter implements Filter {
 }
 ```
 
-### TestListenner.java
+### ExtentReportManager.java
 
-TestNG listener for test lifecycle tracking:
+TestNG listener for generating Extent Reports:
 
 ```java
-@Override
-public void onTestSuccess(ITestResult result) {
-    logger.info("Test case passed!!! : " + result.getMethod().getMethodName());
+public class ExtentReportManager implements ITestListener {
+    public ExtentSparkReporter sparkReporter;
+    public ExtentReports extent;
+    public ExtentTest test;
+    
+    @Override
+    public void onStart(ITestContext testContext) {
+        // Initialize Extent Reports with timestamped filename
+    }
+    
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        // Log successful tests to report
+    }
+    
+    @Override
+    public void onTestFailure(ITestResult result) {
+        // Log failed tests with failure details
+    }
 }
+```
 
-@Override
-public void onTestFailure(ITestResult result) {
-    logger.error("Test case failed!!! : " + result.getMethod().getMethodName());
+### DataProviders.java
+
+Contains TestNG data providers for parameterized tests:
+
+```java
+public class DataProviders {
+    @DataProvider
+    public Object[][] getLoginCredentials() {
+        // Return test data for login tests
+    }
+    
+    @DataProvider
+    public Object[][] getUserData() {
+        // Return user data for user tests
+    }
+}
+```
+
+### ExcelUtility.java
+
+Utility class for reading/writing Excel test data:
+
+```java
+public class ExcelUtility {
+    // Methods to read data from Excel files (TestData.xlsx)
+    // Methods to write test results to Excel
 }
 ```
 
@@ -589,14 +749,35 @@ String body = "{\"username\":\"user\",\"password\":\"pass\"}";
 LoginRequest request = new LoginRequest("user", "pass");
 ```
 
-### 3. **Meaningful Test Names & Descriptions**
+### 3. **Generate Test Data with JavaFaker**
+
+❌ Hardcoded test data:
+```java
+User user = new User();
+user.setUsername("testuser123");
+user.setEmail("test@example.com");
+```
+
+✅ Use JavaFaker for dynamic test data:
+```java
+Faker faker = new Faker();
+User user = new User();
+user.setUsername(faker.name().username());
+user.setFirstName(faker.name().firstName());
+user.setLastName(faker.name().lastName());
+user.setEmail(faker.internet().safeEmailAddress());
+user.setPassword(faker.internet().password(5, 10));
+user.setPhone(faker.phoneNumber().cellPhone());
+```
+
+### 4. **Meaningful Test Names & Descriptions**
 
 ```java
 @Test(description = "Verify successful login with valid credentials")
 public void loginWithValidCredentials() { ... }
 ```
 
-### 4. **Comprehensive Assertions**
+### 5. **Comprehensive Assertions**
 
 ```java
 // Good: Multiple validations
@@ -605,7 +786,7 @@ Assert.assertNotNull(loginResponse.getToken());
 Assert.assertEquals(loginResponse.getUsername(), "expectedUser");
 ```
 
-### 5. **Error Handling**
+### 6. **Error Handling**
 
 ```java
 try {
@@ -618,7 +799,7 @@ try {
 }
 ```
 
-### 6. **Use Parameterized Tests**
+### 7. **Use Parameterized Tests with Data Providers**
 
 For testing multiple scenarios with different data:
 
@@ -637,6 +818,57 @@ public Object[][] loginCredentials() {
         {"user3", "pass3"}
     };
 }
+```
+
+### 8. **Leverage Lombok for POJO Generation**
+
+❌ Manual getters and setters:
+```java
+public class User {
+    private String username;
+    private String email;
+    
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+}
+```
+
+✅ Using Lombok annotations:
+```java
+@Data
+@Getter
+@Setter
+public class User {
+    private String username;
+    private String email;
+    private String password;
+}
+```
+
+### 9. **Use Excel Utilities for Test Data**
+
+Leverage `ExcelUtility.java` to read test data from `TestData.xlsx`:
+
+```java
+@BeforeClass
+public void loadTestData() {
+    ExcelUtility excelUtil = new ExcelUtility();
+    Object[][] testData = excelUtil.readExcelData("TestData.xlsx", "LoginSheet");
+    // Use testData in tests
+}
+```
+
+### 10. **Enable Parallel Test Execution**
+
+Configure `suite.xml` for faster test runs:
+
+```xml
+<suite name="REST ASSURED API Test suite" parallel="tests" thread-count="5">
+  <!-- tests run in parallel -->
+</suite>
 ```
 
 ---
