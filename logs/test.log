@@ -48,3 +48,126 @@ Connection=keep-alive
 12:14:56.311 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
 12:14:56.312 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
 12:14:56.347 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : Default test
+20:06:11.477 [main] INFO  com.api.listeners.TestListenner - Test suite started !!!: API Test
+20:06:11.753 [main] INFO  com.api.listeners.TestListenner - Test case started!!! : loginTestOptimized
+20:06:13.376 [main] INFO  com.api.filters.LoggingFilter - Request Method: POST
+20:06:13.376 [main] INFO  com.api.filters.LoggingFilter - Base URI : http://64.227.160.186:8080
+20:06:13.381 [main] INFO  com.api.filters.LoggingFilter - Request URI: http://64.227.160.186:8080/api/auth/login
+20:06:13.381 [main] INFO  com.api.filters.LoggingFilter - Request Headers: Accept=*/*
+Content-Type=application/json
+20:06:13.383 [main] INFO  com.api.filters.LoggingFilter - Request Body: {"username":"jaswanth","password":"Jaswanth@9999"}
+20:06:13.966 [main] INFO  com.api.filters.LoggingFilter - Response Status Code: 200
+20:06:13.966 [main] INFO  com.api.filters.LoggingFilter - Response Headers: Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+Access-Control-Allow-Origin=https://swift.techwithjatin.com
+Access-Control-Allow-Methods=GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age=3600
+Access-Control-Allow-Headers=Authorization, Content-Type, Accept
+Access-Control-Allow-Credentials=true
+X-Content-Type-Options=nosniff
+X-XSS-Protection=0
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Mon, 08 Jun 2026 14:36:13 GMT
+Keep-Alive=timeout=60
+Connection=keep-alive
+20:06:14.013 [main] INFO  com.api.filters.LoggingFilter - Response Body: {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYXN3YW50aCIsImlhdCI6MTc4MDkyOTM3MywiZXhwIjoxNzgwOTMyOTczfQ.Svnyq0Fs6-TdKxMSu59xpo9Ti3PP0KlpMTjrqWUeZHo",
+    "type": "Bearer",
+    "id": 4490,
+    "username": "Jaswanth",
+    "email": "Jaswanthalapati1@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ]
+}
+20:06:14.100 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
+20:06:14.100 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
+20:06:14.394 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : API Test
+22:09:30.380 [main] INFO  com.api.listeners.TestListenner - Test suite started !!!: API Test
+22:09:30.680 [main] INFO  com.api.listeners.TestListenner - Test case started!!! : loginTestOptimized
+22:09:32.847 [main] INFO  com.api.filters.LoggingFilter - Request Method: POST
+22:09:32.847 [main] INFO  com.api.filters.LoggingFilter - Base URI : http://64.227.160.186:8080
+22:09:32.855 [main] INFO  com.api.filters.LoggingFilter - Request URI: http://64.227.160.186:8080/api/auth/login
+22:09:32.855 [main] INFO  com.api.filters.LoggingFilter - Request Headers: Accept=*/*
+Content-Type=application/json
+22:09:32.855 [main] INFO  com.api.filters.LoggingFilter - Request Body: {"username":"jaswanth","password":"Jaswanth@9999"}
+22:09:33.676 [main] INFO  com.api.filters.LoggingFilter - Response Status Code: 200
+22:09:33.676 [main] INFO  com.api.filters.LoggingFilter - Response Headers: Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+Access-Control-Allow-Origin=https://swift.techwithjatin.com
+Access-Control-Allow-Methods=GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age=3600
+Access-Control-Allow-Headers=Authorization, Content-Type, Accept
+Access-Control-Allow-Credentials=true
+X-Content-Type-Options=nosniff
+X-XSS-Protection=0
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Mon, 08 Jun 2026 16:39:33 GMT
+Keep-Alive=timeout=60
+Connection=keep-alive
+22:09:33.779 [main] INFO  com.api.filters.LoggingFilter - Response Body: {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYXN3YW50aCIsImlhdCI6MTc4MDkzNjc3MywiZXhwIjoxNzgwOTQwMzczfQ.CsOFmO9TaKocxyyy-_16wW1jo18FU8zWesOLzzEtqIM",
+    "type": "Bearer",
+    "id": 4490,
+    "username": "Jaswanth",
+    "email": "Jaswanthalapati1@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ]
+}
+22:09:33.960 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
+22:09:33.960 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
+22:09:34.363 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : API Test
+22:18:52.607 [main] INFO  com.api.listeners.TestListenner - Test suite started !!!: API Test
+22:18:52.933 [main] INFO  com.api.listeners.TestListenner - Test case started!!! : loginTestOptimized
+22:18:55.011 [main] INFO  com.api.filters.LoggingFilter - Request Method: POST
+22:18:55.012 [main] INFO  com.api.filters.LoggingFilter - Base URI : http://64.227.160.186:8080
+22:18:55.019 [main] INFO  com.api.filters.LoggingFilter - Request URI: http://64.227.160.186:8080/api/auth/login
+22:18:55.020 [main] INFO  com.api.filters.LoggingFilter - Request Headers: Accept=*/*
+Content-Type=application/json
+22:18:55.020 [main] INFO  com.api.filters.LoggingFilter - Request Body: {"username":"jaswanth","password":"Jaswanth@9999"}
+22:18:55.878 [main] INFO  com.api.filters.LoggingFilter - Response Status Code: 200
+22:18:55.878 [main] INFO  com.api.filters.LoggingFilter - Response Headers: Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+Access-Control-Allow-Origin=https://swift.techwithjatin.com
+Access-Control-Allow-Methods=GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Max-Age=3600
+Access-Control-Allow-Headers=Authorization, Content-Type, Accept
+Access-Control-Allow-Credentials=true
+X-Content-Type-Options=nosniff
+X-XSS-Protection=0
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Mon, 08 Jun 2026 16:48:55 GMT
+Keep-Alive=timeout=60
+Connection=keep-alive
+22:18:55.942 [main] INFO  com.api.filters.LoggingFilter - Response Body: {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYXN3YW50aCIsImlhdCI6MTc4MDkzNzMzNSwiZXhwIjoxNzgwOTQwOTM1fQ.MX_LZCf5hn6jV7avCcx3lYWhzWyyNrI8qGu7foU4NTk",
+    "type": "Bearer",
+    "id": 4490,
+    "username": "Jaswanth",
+    "email": "Jaswanthalapati1@gmail.com",
+    "roles": [
+        "ROLE_USER"
+    ]
+}
+22:18:56.041 [main] INFO  com.api.listeners.TestListenner - Test case passed!!! : loginTestOptimized
+22:18:56.042 [main] INFO  com.api.listeners.TestListenner - Description!!! : Test the login API
+22:18:56.560 [main] INFO  com.api.listeners.TestListenner - Test suite finished!!! : API Test
